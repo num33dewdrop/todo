@@ -1,11 +1,12 @@
 # Name
 TODO app
 
+
 ## Overview
 This is a TODO app built in Vue.js.
-It uses local storage to store data.
-Data will remain unless you intentionally clear the cache.
-No server is used and the data is stored on the browser side, so please do not enter sensitive information.
+ It uses local storage to store data. 
+Data will remain unless you intentionally clear the cache. 
+
 
 ## Functions
 Add, edit, and delete task lists
