@@ -1,4 +1,4 @@
-# todo
+# TODO app
 This is a TODO app created in Vue.js.
 
 ## Overview
