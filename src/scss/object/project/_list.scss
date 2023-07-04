@@ -1,0 +1,31 @@
+.p-list {
+  padding: 0 $space_ll;
+  position: relative;
+  @include mq() {
+    padding: 0 $space_m;
+    height: calc(100vh - 242px);
+    overflow-y: scroll;
+  }
+  &__incomplete {
+    height: 460px;
+    overflow-y: scroll;
+    /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+    -ms-overflow-style: none;
+    /*Firefoxへの対応*/
+    scrollbar-width: none;
+    position: relative;
+    @include mq() {
+      height: auto;
+      overflow-y: initial;
+    }
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    &--border {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+  &__complete {
+    padding: $space_m 0;
+  }
+}

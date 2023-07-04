@@ -1,0 +1,34 @@
+.p-lists {
+  margin-bottom: $space_m;
+  padding: $space_m $space_l;
+  border-bottom: 1px solid $border-color;
+  @include mq() {
+    padding: $space_m;
+  }
+  &__wrap {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin-right: $space_l;
+    overflow: scroll;
+    /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+    -ms-overflow-style: none;
+    /*Firefoxへの対応*/
+    scrollbar-width: none;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+  &__item {
+    margin-right: $space_m;
+    width: max-content;
+    &--selected {
+      border-bottom: 2px solid $border-color;
+    }
+  }
+  &__new {
+    color: $font-color_btn;
+    background: $bg-color_btn2;
+    border-radius: 5px;
+  }
+}

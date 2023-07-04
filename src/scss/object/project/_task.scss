@@ -1,0 +1,35 @@
+.p-task {
+  width: 100%;
+  padding: $space_m 0;
+  border-bottom: 1px dashed $border-color;
+  transition: all .5s ease;
+  &:last-child {
+    border: none;
+  }
+  &__info {
+    background: #fff;
+    padding: $space_m;
+    border-radius: 3px;
+    margin-bottom: $space_s;
+    border: 1px solid $border-color;
+    box-sizing: border-box;
+    &--isDone {
+      background: $bg-color_done;
+    }
+  }
+  &__main{
+    width: 90%;
+  }
+  &__text {
+    width: 80%;
+  }
+  &__icon {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  &__time {
+    text-align: right;
+  }
+}

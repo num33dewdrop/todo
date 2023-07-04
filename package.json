@@ -1,0 +1,50 @@
+{
+  "name": "schedule_todos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass --include-path scss src/scss/app.scss dist/css/app.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+  },
+  "author": "num33",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "luxon": "^3.3.0",
+    "moment": "^2.29.4",
+    "vue": "^2.5.11",
+    "vuejs-datepicker": "^1.6.2",
+    "weekstart": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "7.1.1",
+    "babel-preset-env": "^1.7.0",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.18.13",
+    "browserify": "^14.5.0",
+    "classnames": "^2.2.5",
+    "css-loader": "^1.0.1",
+    "eslint": "^4.12.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-webpack": "^1.5.0",
+    "vinyl-source-stream": "^1.1.0",
+    "vue-devtools": "^3.1.9",
+    "webpack": "^3.9.1",
+    "webpack-stream": "^4.0.0",
+    "node-sass": "^4.9.4",
+    "nodemon": "^1.18.4"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}

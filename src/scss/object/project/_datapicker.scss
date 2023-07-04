@@ -1,0 +1,15 @@
+.vdp-datepicker {
+  margin-right: $space_m;
+  &__clear-button {
+    position: absolute;
+    top: 23%;
+    right: 5%;
+  }
+  &__calendar {
+    left: -300px;
+    top: -120px;
+    @include mq() {
+      left: -46px;
+    }
+  }
+}

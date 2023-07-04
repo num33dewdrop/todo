@@ -1,0 +1,26 @@
+.p-foot {
+  padding: $space_m $space_l;
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  &__addTask {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &__addBtn {
+    padding: 10px 50px;
+    background: $bg-color_btn2;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    color: $font-color_btn;
+    font-weight: bold;
+  }
+  &__setBtn {
+    font-size: $font-size_m;
+    position: relative;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,88 @@
+/*変数*/
+$site-width: 980px;
+
+$font-color_default: #999;
+$font-color_title: #fdfdfd;
+$font-color_btn: #f6f5f4;
+$font-color_star: #ddc337;
+$font-color_err: #b62b2b;
+
+$color_corp: linear-gradient(rgb(246, 222, 219), rgb(205, 177, 177));
+
+$bg-color_default: #f6f5f4;
+$bg-color_done: #ececec;
+$bg-color_err: #ffd0d0;
+$bg-color_btn: #999;
+$bg-color_btn2: #e4cbcb;
+
+$border-color: #e0e0e0;
+$border-color_done: #9ef1c1;
+$shadow-color: #aaa;
+$shadow-color2: #bbb;
+
+$font-size_default: 16px;
+$font-size_m: 18px;
+
+$space_s: 10px;
+$space_m: 15px;
+$space_l: 30px;
+$space_ll: 50px;
+
+$font-family_corp: 'Roboto', sans-serif;
+
+$breakPoints: (
+        'sm': 'screen and (max-width: 414px)',
+        'md': 'screen and (max-width: 768px)',
+        'lg': 'screen and (max-width: 1000px)'
+) !default;
+
+@mixin mq($breakPoint: sm) {
+  @media #{map-get($breakPoints, $breakPoint)} {
+    @content;
+  }
+}
+
+body, html {
+  color: $font-color_default;
+  line-height: 1.6;
+  text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
+  background: $color_corp;
+  font-family: $font-family_corp;
+  font-size: $font-size_default;
+}
+h1,h2,h3,h4,h5,h6,p{
+  margin: 0;
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+img {
+  width: 100%;
+}
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $font-color_default;
+}
+button:hover {
+  cursor: pointer;
+}
+input[type="text"], textarea {
+  display: block;
+  border: none;
+  padding: $space_m;
+  border-radius: 5px;
+}
+input[type='checkbox']{
+  display: none;
+}
+.fa-star {
+  color: $font-color_star;
+}

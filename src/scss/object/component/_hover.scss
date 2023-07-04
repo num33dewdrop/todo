@@ -1,0 +1,7 @@
+.c-hoverFloat {
+  transition: box-shadow .5s ease;
+  &:hover {
+    transition: box-shadow .5s ease;
+    box-shadow: 1px 1px 5px $shadow-color;
+  }
+}

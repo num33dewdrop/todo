@@ -1,0 +1,42 @@
+.l-main {
+  width: $site-width;
+  margin: 0 auto $space_l;
+  @include mq() {
+    width: 100%;
+    margin: 0;
+  }
+  &__title {
+    text-align: center;
+    font-size: 2.5em;
+    -webkit-text-stroke: 0.5px $font-color_title;
+    color: rgba(0,0,0,.0);
+    letter-spacing: .1em;
+    padding: $space_l 0;
+    @include mq() {
+      font-size: 2em;
+    }
+  }
+  &__container {
+    width: 60%;
+    margin: 0 auto;
+    background: $bg-color_default;
+    border-radius: 5px;
+    overflow: hidden;
+    @include mq() {
+      width: 100%;
+      border-radius: inherit;
+      height: calc(100vh - 111.2px);
+    }
+  }
+  &__foot {
+    margin-top: $space_l;
+    border-top: 1px solid $border-color;
+    background: $bg-color_default;
+    @include mq() {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      z-index: 2;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.p-noContents {
+  text-align: center;
+  position: relative;
+  &__img {
+    width: 70%;
+    padding: $space_m 0;
+    margin: 0 auto;
+    opacity: .2;
+  }
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+  }
+}

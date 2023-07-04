@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <title>TODO LIST</title>
+    <link rel="stylesheet" href="./dist/css/app.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8398227d24.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<main class="l-main">
+    <h1 class="l-main__title">TODOS</h1>
+    <div id="app" class="l-main__container">
+        <section class="l-main__body">
+            <div class="p-lists c-flexBetween">
+                <transition-group name="slide-fade" tag="ul" class="p-lists__wrap">
+                    <li key=0>
+                        <button class="p-lists__item c-btn"
+                                :class="{'p-lists__item--selected': currentListId === 0}"
+                                @click="onShowList()"
+                        ><i class="fa-solid fa-star"></i></button>
+                    </li>
+                    <list-row v-for="list in lists"
+                               :key=list.listId
+                               :list="list"
+                               :current-list-id="currentListId"
+                               @is-show-list="onShowList"
+                    ></list-row>
+                </transition-group>
+                <div>
+                    <button class="p-lists__new c-btn c-hoverFloat"
+                            @click="showModal('list')"
+                    >+New</button>
+                </div>
+            </div>
+            <div class="p-list">
+                <div class="p-list__incomplete" :class="{'p-list__incomplete--border':completeTaskNum}">
+                    <transition name="slide-fade" mode="out-in">
+                        <div key="tasks" v-if="incompleteTaskNum">
+                            <transition name="slide-fade" mode="out-in">
+                                <transition-group tag="ul" name="slide"
+                                                  class="p-task"
+                                                  :key="currentListId">
+                                    <task v-for="task in filterTasks(this.selectedTasks,'incomplete')"
+                                          :key="task.id"
+                                          :list="selectedList"
+                                          :task="task"
+                                          :current-list-id="currentListId"
+                                          state="incomplete"
+                                          @edit-task="onEditTaskReserve"
+                                          @remove-task="onRemoveTask"
+                                    ></task>
+                                </transition-group>
+                            </transition>
+                        </div>
+                        <no-contents :current-list-id="currentListId"
+                                     key="no-tasks"
+                                     v-else
+                        ></no-contents>
+                    </transition>
+                </div>
+                <div class="p-list__complete">
+                    <animation-height name="slide-delay" :fn="nextFrame">
+                        <complete-num v-show="completeTaskNum"
+                                                :complete-task-toggle-show="completeTaskToggleShow"
+                                                :complete-task-num="completeTaskNum"
+                                                @toggle-show-task="onCompleteTaskToggleShow"
+                        ></complete-num>
+                    </animation-height>
+                    <animation-height name="slide-fade" :fn="nextFrame">
+                        <transition-group tag="ul" name="slide"
+                                          class="p-task"
+                                          v-show="completeTaskToggleShow">
+                            <task v-for="task in filterTasks(this.selectedTasks,'complete')"
+                                  class="taskItem"
+                                  :key="task.id"
+                                  :list="selectedList"
+                                  :task="task"
+                                  :current-list-id="currentListId"
+                                  state="complete"
+                                  @edit-task="onEditTaskReserve"
+                                  @remove-task="onRemoveTask"
+                            ></task>
+                        </transition-group>
+                    </animation-height>
+                </div>
+            </div>
+        </section>
+        <section class="l-main__foot">
+            <div class="p-foot">
+                <transition name="fade">
+                    <div class="p-foot__addTask" v-show="currentListId">
+                        <button @click="showModal('task')"
+                                class="p-foot__addBtn c-hoverFloat"
+                        >タスク追加</button>
+                    </div>
+                </transition>
+                <button class="p-foot__setBtn"
+                        @click="listSetUp = !listSetUp">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <animation-height name="slide-fade" :fn="nextFrame">
+            <div class="p-menu" v-show="listSetUp">
+                <div>
+                    <h3 class="p-menu__title">リストの編集</h3>
+                    <ul class="p-menu__list">
+                        <li>
+                            <button class="p-menu__item"
+                                    :disabled="currentListId === 0"
+                                    @click="editListReserve"
+                            >リストの名前を変更</button>
+                        </li>
+                        <li>
+                            <button class="p-menu__item"
+                                    :disabled="currentListId === 0 || currentListId ===　1"
+                                    :title="description"
+                                    @click="removeList"
+                            >リスト削除</button>
+                        </li>
+                        <li>
+                            <button class="p-menu__item"
+                                    @click="removeCompleteTask"
+                            >完了したタスクを全て削除</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="u-paddingB--m">
+                    <h3 class="p-menu__title">並べ替え</h3>
+                    <ul class="p-menu__list">
+                        <li>
+                            <button class="p-menu__item"
+                                    @click="sortDate('id')"
+                            >指定日昇順</button>
+                        </li>
+                        <li>
+                            <button class="p-menu__item"
+                                    @click="sortDate('id', false)"
+                            >指定日降順</button>
+                        </li>
+                        <li>
+                            <button class="p-menu__item"
+                                    @click="sortDate('expirationDate')"
+                            >期限昇順</button>
+                        </li>
+                        <li>
+                            <button class="p-menu__item"
+                                    @click="sortDate('expirationDate', false)"
+                            >期限降順</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </animation-height>
+        </section>
+        <modal v-show="addList || editList"
+               :parent-height="$el.parentElement.offsetHeight"
+               @hide-modal="onHideModal()"
+               :errors="errors">
+            <template v-slot:name>
+                <input @input="inputText($event,'list')"
+                       :value="newListName"
+                       :class="{'c-addInput--error': errors.length}"
+                       class="c-addInput"
+                       type="text"
+                       ref="focusInputList"
+                       @keyup="errorProcess"
+                       placeholder="新しいリスト名を入力して下さい" />
+            </template>
+            <template v-slot:other>
+                <button class="c-modalBtn"
+                        @click="entryAddList"
+                        v-show="addList"
+                >追加</button>
+                <button class="c-modalBtn"
+                        @click="entryEditList"
+                        v-show="editList"
+                >編集</button>
+            </template>
+        </modal>
+        <modal v-show="addTask || editTask"
+               :parent-height="$el.parentElement.offsetHeight"
+               @hide-modal="onHideModal()"
+               :errors="errors">
+            <template v-slot:name>
+                <input @input="inputText($event,'task')"
+                       :value="newTaskTitle"
+                       :class="{'c-addInput--error': errors.length}"
+                       class="c-addInput"
+                       type="text"
+                       ref="focusInputTask"
+                       @keyup="errorProcess"
+                       placeholder="新しいタスク名を入力して下さい">
+            </template>
+            <template v-slot:other>
+                <textarea class="c-addInput"
+                          v-model="newTaskDetail"
+                          name="taskDetail"
+                          cols="30" rows="10"
+                          placeholder="詳細"
+                ></textarea>
+                <vuejs-datepicker v-model="newExpirationDate"
+                                  format="yyyy-MM-dd"
+                                  value-type="format"
+                                  placeholder="期限を入力して下さい"
+                                  :disabled-dates="disabledDates"
+                                  calendar-class="vdp-datepicker__calendar"
+                                  :clear-button=true
+                ></vuejs-datepicker>
+                <button class="c-modalBtn"
+                        @click="entryAddTask()"
+                        v-show="addTask"
+                >追加</button>
+                <button class="c-modalBtn"
+                        @click="entryEditTask()"
+                        v-show="editTask"
+                >編集</button>
+            </template>
+        </modal>
+    </div>
+</main>
+<script src="./dist/js/bundle.js"></script>
+</body>
+</html>

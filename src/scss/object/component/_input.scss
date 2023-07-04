@@ -1,0 +1,8 @@
+.c-addInput {
+  width: 100%;
+  margin-bottom: $space_m;
+  box-sizing: border-box;
+  &--error {
+    background: $bg-color_err;
+  }
+}

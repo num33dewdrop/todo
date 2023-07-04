@@ -1,0 +1,12 @@
+{
+  "extends": [],
+  "parserOptions": {
+    "sourceType": "module" // import/exportを使うため
+  },
+  "env": {
+    "browser": true // ブラウザー用オブジェクト（documentオブジェクト）を使えるように
+  },
+  "plugins": [],
+  "rules": {},
+  "globals": {}
+}

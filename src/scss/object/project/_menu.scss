@@ -1,0 +1,16 @@
+.p-menu {
+  width: 70%;
+  margin: 0 auto;
+  &__title {
+    font-size: 1em;
+  }
+  &__list {
+    padding: 0 0 $space_m $space_m;
+  }
+  &__item {
+    background: none;
+    &:disabled {
+      text-decoration: line-through;
+    }
+  }
+}

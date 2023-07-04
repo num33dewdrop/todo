@@ -1,0 +1,44 @@
+.p-modal{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  &__mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(153,153,153, .5);
+    z-index: 2;
+  }
+  &__container {
+    width: 40%;
+    min-width: 360px;
+    margin: 120px auto;
+    background: $bg-color_default;
+    padding: $space_m;
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+    @include mq() {
+      width: 100%;
+      min-width: inherit;
+    }
+  }
+  &__inputWrap {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    @include mq() {
+      width: 85%;
+    }
+  }
+  &__emptyText{
+    color: $font-color_err;
+    margin-bottom: $space_m;
+    width: 100%;
+    text-align: right;
+  }
+}
