@@ -1,7 +1,7 @@
 # Name
 TODO app
 
-## Description
+## Overview
 This is a TODO app built in Vue.js.
 It uses local storage to store data.
 Data will remain unless you intentionally clear the cache.
